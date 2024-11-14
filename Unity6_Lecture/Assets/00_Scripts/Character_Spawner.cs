@@ -3,10 +3,13 @@ using Unity.VisualScripting;
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Collections;
 public class Character_Spawner : MonoBehaviour
 {
     [SerializeField] private GameObject _spawn_Prefab;
+    [SerializeField] private Monster _spawn_Monster_Prefab;
 
+    public static List<Vector2> move_list = new List<Vector2>();
     List<Vector2> spawn_list = new List<Vector2>();
     List<bool> spawn_list_arry = new List<bool>(); // 현재 칸에 캐릭터를 스폰시킬 수 있는가 없는가 판단할 변수
     
@@ -14,6 +17,11 @@ public class Character_Spawner : MonoBehaviour
     void Start()
     {
         Grid_Start();
+        for (int i = 0; i < transform.childCount; i++) 
+        { 
+            move_list.Add(transform.GetChild(i).position);
+        }
+        StartCoroutine(Spawn_Monster_Coroutine());
     }
     #region Make_Grid
     private void Grid_Start()
@@ -48,7 +56,17 @@ public class Character_Spawner : MonoBehaviour
         }
     }
     #endregion
+    #region 몬스터 소환
+    IEnumerator Spawn_Monster_Coroutine()
+    {
+        var go = Instantiate(_spawn_Monster_Prefab, move_list[0], Quaternion.identity);
+        yield return new WaitForSeconds(0.5f);
 
+        StartCoroutine(Spawn_Monster_Coroutine());
+    }
+    #endregion
+
+    #region 캐릭터 소환
     public void Summon()
     {
         int position_value = -1;
@@ -64,4 +82,6 @@ public class Character_Spawner : MonoBehaviour
         }
         go.transform.position = spawn_list[position_value];
     }
+    #endregion
+
 }

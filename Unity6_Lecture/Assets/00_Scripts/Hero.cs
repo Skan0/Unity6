@@ -1,12 +1,11 @@
 using UnityEngine;
 
-public class Character : MonoBehaviour
+public class Hero : Character
 {
-    Animator animator;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public virtual void Start()
+    void Start()
     {
-        animator = transform.GetChild(0).GetComponent<Animator> ();
+        
     }
 
     // Update is called once per frame
