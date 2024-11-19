@@ -1,26 +1,31 @@
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Monster : Character
 {
-    public int Hp = 0;
+    [SerializeField] private float m_Speed;
+    [SerializeField] private HitText hitText;
+    [SerializeField] private Image m_Fill,m_FillDeco;
+    public int Hp = 0, MaxHP=0;
+    
     int target_Value = 0;
     bool isDead = false;
-    [SerializeField] private float m_Speed;
+    
     
     //상속받는 클래스의 start가 virtual로 선언되어 있어서 override로 받아올 수 있다.
     public override void Start()
     {
+        Hp = MaxHP;
         base.Start(); 
     }
 
     private void Update()
     {
-        if (isDead)
-        {
-            return;
-        }
+        m_FillDeco.fillAmount = Mathf.Lerp(m_FillDeco.fillAmount, m_Fill.fillAmount, Time.deltaTime * 2.0f);
+        if (isDead)return;
+               
         transform.position = Vector2.MoveTowards(transform.position, Character_Spawner.move_list[target_Value], Time.deltaTime*m_Speed);
         if(Vector2.Distance(transform.position, Character_Spawner.move_list[target_Value]) <= 0.1f)
         {
@@ -33,6 +38,8 @@ public class Monster : Character
     {
         if (isDead) return;
         Hp -= dmg;
+        m_Fill.fillAmount = (float)Hp / (float)MaxHP;
+        Instantiate(hitText, transform.position, Quaternion.identity).Initialize(dmg);
         if(Hp <= 0)
         {
             gameObject.layer = LayerMask.NameToLayer("Default");
