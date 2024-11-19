@@ -31,12 +31,27 @@ public class Monster : Character
     }
     public void GetDamage(int dmg)
     {
+        if (isDead) return;
         Hp -= dmg;
-        if(Hp < 0)
+        if(Hp <= 0)
         {
+            gameObject.layer = LayerMask.NameToLayer("Default");
             AnimatorChange("Dead", true);
+            StartCoroutine(Dead());
             isDead = true;
-            Destroy(gameObject);
         }
+    }
+    IEnumerator Dead()
+    {
+        float Alpha =1.0f;
+        
+        while(renderer.color.a> 0)
+        {
+            Alpha-=Time.deltaTime;
+            renderer.color -= new Color(renderer.color.r, renderer.color.g, renderer.color.b,
+                Alpha);
+            yield return null;
+        }
+        Destroy(gameObject);
     }
 }
