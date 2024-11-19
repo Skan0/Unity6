@@ -56,15 +56,6 @@ public class Character_Spawner : MonoBehaviour
         }
     }
     #endregion
-    #region 몬스터 소환
-    IEnumerator Spawn_Monster_Coroutine()
-    {
-        var go = Instantiate(_spawn_Monster_Prefab, move_list[0], Quaternion.identity);
-        yield return new WaitForSeconds(0.5f);
-
-        StartCoroutine(Spawn_Monster_Coroutine());
-    }
-    #endregion
 
     #region 캐릭터 소환
     public void Summon()
@@ -84,4 +75,13 @@ public class Character_Spawner : MonoBehaviour
     }
     #endregion
 
+    #region 몬스터 소환
+    IEnumerator Spawn_Monster_Coroutine()
+    {
+        var go = Instantiate(_spawn_Monster_Prefab, move_list[0], Quaternion.identity);
+        yield return new WaitForSeconds(0.75f);
+
+        StartCoroutine(Spawn_Monster_Coroutine());
+    }
+    #endregion
 }
