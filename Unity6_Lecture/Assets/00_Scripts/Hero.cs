@@ -15,12 +15,12 @@ public class Hero : Character
     void CheckForEnemies()
     {
         Collider2D[] enemiesInRange = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
-
-        if (enemiesInRange.Length > 0) { 
+        attackSpeed += Time.deltaTime;
+        if (enemiesInRange.Length > 0) {
             target = enemiesInRange[0].GetComponent<Monster>();
             if (attackSpeed >= 1.0f)
             {
-                attackSpeed = 0;
+                attackSpeed = 0.0f;
                 AttackEnemy(target);
             }
         }
@@ -28,6 +28,7 @@ public class Hero : Character
         {
             target = null;
         }
+        
     }
    
 

@@ -50,6 +50,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e7f25256cc5d44a964643adc199ed7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floatSpeed: 0
+  riseDuration: 1
+  fadeDuration: 1
+  offset: {x: 0, y: 2, z: 0}
+  damageText: {fileID: 3566976502713716439}
 --- !u!23 &5247252690767258648
 MeshRenderer:
   m_ObjectHideFlags: 0

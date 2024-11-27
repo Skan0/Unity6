@@ -42,6 +42,8 @@ public class Monster : Character
         Instantiate(hitText, transform.position, Quaternion.identity).Initialize(dmg);
         if(Hp <= 0)
         {
+            GameManager.instance.GetMoney(1);
+            GameManager.instance.RemoveMonster(this);
             gameObject.layer = LayerMask.NameToLayer("Default");
             AnimatorChange("Dead", true);
             StartCoroutine(Dead());

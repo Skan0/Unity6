@@ -332,7 +332,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 1
-  target: {fileID: 0}
+  attackSpeed: 1
+  target: {fileID: 5699935609587851796, guid: 4638f145f44573346826c6819ff50acb, type: 3}
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
